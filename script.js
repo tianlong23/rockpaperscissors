@@ -1,112 +1,206 @@
-var playerscore = 0;
-var computerscore = 0;
+/* create a playerselection function */
+function playerselection() {
+    /*console.log('player selection function');
+    const choice = document.querySelector('.choices');
+    choice.addEventListener('click', (e) => {
+        if (e.target.id === 'rock' || e.target.id === 'paper' || e.target.id === 'scissors')
+            userinput = (e.target.id);
+            playround(); */
 
-game(playerscore, computerscore);
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            userinput = (e.target.id);
+            playround();
+        })
+    })        
+    };
 
-/* create a function called game that plays a 5 round game */
-function game() {
-   /* start a for loop starting at 1, increasing the count by 1 for each round, exiting once 5 rounds are played */
+function displayselection() {
+    const selection = document.querySelector('.selection');
+    //const content = document.createElement('div');
+    selection.textContent = 'Computer Choice is: ' + computerinput + ' and user choice is: ' + userinput;
+    //container.appendChild(content);
+    const outcome = document.querySelector('.outcome');
+    outcome.textContent = '';
+}
+
+function displayscore() {
+    console.log('display function');
+    const playerdisplay = document.querySelector('#playerdisplay');
+    playerdisplay.textContent = playerscore;
+    const computerdisplay = document.querySelector('#computerdisplay');
+    computerdisplay.textContent = computerscore;
+}
+
+function computerselection () {
+    console.log("computer selection function")
+
     
-   
-   for (let i = 1; i < 6; i++) {
-    i + 1;
-    playround();
-    console.log("Round " + i + " | " + "Playerscore: " + playerscore + " | " + "Computerscore: "+ computerscore);
-} 
+    computernumber = Math.random();
+    /* if the number is <= .33 set the computer input variable to 'rock' */
+    if (computernumber <= .33) {
+        computerinput = "rock";
+        displayselection();
+    /* if the number is >= .33 & <=.66 set the computer input variable to 'paper' */
+        } else if(computernumber >.33 && computernumber <=.66) {
+         {
+            computerinput = "paper";
+            displayselection();
+        }
+    /* if the number is >.66 set the computer input variable to 'scissors' */
+        } else {
+            computerinput = "scissors";
+            displayselection();
+    }
+}
 
-if (playerscore > computerscore) {
-    console.log("Final Playerscore: " + playerscore)
-    console.log("final Computerscore" + computerscore)
-    console.log("YOU WIN!!!")
-} else {
-    console.log("Final Playerscore: " + playerscore)
-    console.log("final Computerscore: " + computerscore)
-    console.log("YOU LOSE YOU SUCK!!!")
+const choices = Array.from(document.querySelectorAll('button')); 
+
+//var playerscore = 0;
+//var computerscore = 0;
+
+game();
+function game() {
+   
+   
+    document.querySelector('#rock').disabled = false;
+    document.querySelector('#paper').disabled = false;
+    document.querySelector('#scissors').disabled = false;
+    playerscore = 0;
+    computerscore = 0;
+   
+   
+   //FOR EACH LOOP RUNNING THROUH TWICE AFTER REPLAY. 
+   //SOMETHIGN MAYBE RELATED TO THE ARRAY BEING DOUBLED AFTER THE FIRST PLAYTHROUGH. 
+   //create a code pen and ask for help on discord, explain the problem
+   
+
+
+
+   choices.forEach((choice) => {
+       
+        choice.addEventListener('click', () => {
+            var iterator = choices.values();
+            for (let elements of iterator) {
+                console.log(elements);   
+            }
+            console.log(choice.id + ' click');
+            userinput = choice.id; 
+            
+            computerselection();
+            playround();
+            displayscore()
+            document.getElementById("final").classList.remove("finalstyle");
+            const finalscore = document.querySelector('.finalscore');
+            finalscore.textContent = '';
+            choices.forEach((choice) => {
+                choice.removeEventListener('click', () => {
+                    console.log('removed clicks');
+                });
+            });
+            if (playerscore === 5) {
+                document.querySelector('#rock').disabled = true;
+                //how to get the hover to turn off once the buttons are disabled?
+                document.querySelector('#paper').disabled = true;
+                document.querySelector('#scissors').disabled = true;
+                document.getElementById("final").classList.add("finalstyle")
+                const finalscore = document.querySelector('.finalscore');
+                finalscore.textContent = 'Player Wins';
+                playerscore = 0;
+                computerscore = 0;
+                displayscore();
+                document.getElementById('restartButton').innerHTML = '<button id = "restartButton" >Replay?</button>';
+                const restartButton = document.getElementById('restartButton');
+                restartButton.addEventListener('click', (e) => {
+                    document.getElementById('restartButton').innerHTML = '';
+                    document.getElementById("final").classList.remove("finalstyle");
+                    const finalscore = document.querySelector('.finalscore');
+                    finalscore.textContent = '';
+                    console.log('REPLAY');
+                    game();
+                });
+            } else if (computerscore === 5){
+                document.querySelector('#rock').disabled = true;
+                document.querySelector('#paper').disabled = true;
+                document.querySelector('#scissors').disabled = true;
+                document.getElementById("final").classList.add("finalstyle")
+                const finalscore = document.querySelector('.finalscore');
+                finalscore.textContent = 'Computer Wins';
+                playerscore = 0;
+                computerscore = 0;
+                displayscore();
+                document.getElementById('restartButton').innerHTML = '<button id = "restartButton" >Replay?</button>';
+                const restartButton = document.getElementById('restartButton');
+                restartButton.addEventListener('click', (e) => {
+                    document.getElementById('restartButton').innerHTML = '';
+                    document.getElementById("final").classList.remove("finalstyle");
+                    const finalscore = document.querySelector('.finalscore');
+                    finalscore.textContent = '';
+                    console.log('REPLAY');
+                    game();
+                });
+            } 
+        })
+        
+    })
 }
-}
- 
 
             function playround() {
-                playerselection();
-                computernumber = Math.random();
-                    /* if the number is <= .33 set the computer input variable to 'rock' */
-                    if (computernumber <= .33) {
-                        computerinput = "rock";
-                        console.log("computer choice is: " + computerinput);
-                    /* if the number is >= .33 & <=.66 set the computer input variable to 'paper' */
-                        } else if(computernumber >.33 && computernumber <=.66) {
-                         {
-                            computerinput = "paper";
-                            console.log("computer choice is: " + computerinput);
-                        }
-                    /* if the number is >.66 set the computer input variable to 'scissors' */
-                        } else {
-                            computerinput = "scissors";
-                            console.log("computer choice is: " + computerinput);
-                    }
-                    switch (true) {
+                console.log("playround function");    
+                
+                switch (true) {
                         /* if player selection = 'rock' and computer selection = 'rock' return 'tie!' and replay the round */
                         case (userinput === "rock" && computerinput === "rock") :
-                            console.log("Tie! Try again")
-                            playround();
+                            outcome = document.querySelector('.outcome');
+                            outcome.textContent = 'Outcome: Tie! Try Again';
                             break;
                         /* if player selection = 'rock' and computer selection = 'paper' return 'you lose! paper beats rock' and increase the computer score by 1 */
                             case (userinput === "rock" && computerinput === "paper"):
-                            console.log("You Lose! Paper beats rock!");
                             computerscore = computerscore + 1;
+                            container = document.querySelector('.outcome');
+                            container.textContent = 'You Lose! Paper beats rock!';
                             break;
                         /* if player selection = 'rock' and computer selection = 'scissors' return 'you win! rock beats scissors' and increase the player score by 1 */
                             case (userinput === "rock" && computerinput === "scissors"):
-                            console.log("You win! rock beats scissors");
                             playerscore = playerscore + 1;
+                            container = document.querySelector('.outcome');
+                            container.textContent = 'Outcome: You win! rock beats scissors';
                             break;
                         /* if player selection = 'paper' and computer selection = 'rock' return 'you win! paper beats rock' and increase the player score by 1 */
                             case (userinput ==="paper" && computerinput === "rock"):
-                            console.log("You win! paper beats rock")
                             playerscore = playerscore + 1;
+                            container = document.querySelector('.outcome');
+                            container.textContent = 'Outcome: You win! paper beats rock';
                             break;
                         /* if player selection = 'paper' and computer selection = 'paper' return 'tie!' and and replay the round */
                             case (userinput ==="paper" && computerinput === "paper"):
-                            console.log("Tie! Try again");
-                            playround();
+                            outcome = document.querySelector('.outcome');
+                            outcome.textContent = 'Outcome: Tie! Try Again';
                             break;
                         /* if player selection = 'paper' and computer selection = 'scissors' return 'you lose! scissors beats paper' and increase the computer score by 1 */
                             case (userinput ==="paper" && computerinput === "scissors"):
-                            console.log("You Lose! Scissors beats paper");
                             computerscore = computerscore + 1;
+                            container = document.querySelector('.outcome');
+                            container.textContent = 'Outcome: You Lose! Scissors beats paper!';
                             break;
                         /* if player selection = 'scissors' and computer selection = 'rock' return 'you lose! rock beats scissors' and increase the computer score by 1 */
                             case (userinput ==="scissors" && computerinput === "rock"):
-                            console.log("You Lose! Rock beats Scissors");
                             computerscore = computerscore + 1;
+                            container = document.querySelector('.outcome');
+                            container.textContent = 'Outcome: You Lose! Rock beats Scissors';
                             break;
                         /* if player selection = 'scissors' and computer selection = 'paper' return 'you win! paper beats scissors' and increase the player score by 1 */
                             case (userinput ==="scissors" && computerinput === "paper"):
-                            console.log("You win! Scissors beats paper");
                             playerscore = playerscore + 1;
+                            container = document.querySelector('.outcome');
+                            container.textContent = 'Outcome: You win! Scissors beats paper';
                             break;
                         /* if player selection = 'scissors' and computer selection = 'scissors' return 'tie!' and replay the round */
                             case (userinput ==="scissors" && computerinput === "scissors"):
-                            console.log("Tie! Try again")
-                            playround();
+                            outcome = document.querySelector('.outcome');
+                            outcome.textContent = 'Outcome: Tie! Try Again';
                             break;
                         default:
                 }
             }
-
-                /* create a playerselection function */
-                function playerselection() {
-                    /* create a variable for the users input *//* ask the user for an input */
-                    userinput = prompt("what's your choice?", "rock, paper, scissors?")
-                    /* change all inputs to all lowercase */
-                    userinput = userinput.toLowerCase();
-                    /* check to see if the input is one of the three accepted values */
-                    /* if the input is an acceptable answer, set this as the variable for the player */
-                    if (userinput === "rock" || userinput === "paper" || userinput === "scissors") {
-                        console.log("PlayerChoice is: " + userinput );
-                    /* if the input is not one of the acceptable answers, return an error message and ask for input again */
-                    } else {
-                        console.log("Incorrect option, choose rock, paper, or, scissors");
-                        playerselection();
-                    }
-                    }

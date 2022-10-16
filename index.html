@@ -4,9 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RPS</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="script.js"></script>
+    <h1>Welcome to Rock, Paper, Scissors!</h1>
+        <h2 >Choose to Start</h2>
+        <div class = "choices">
+            <div >
+                <button id="rock">Rock</button>
+            </div>
+            <div>
+                <button id = 'paper'>Paper</button>
+            </div>
+            <div>
+                <button id = 'scissors'>Scissors</button>
+            </div>
+        </div>
+        <div class = 'selection'>
+            <div class = 'playerSelection'>Player:</div>
+            <div class = 'computerSelection'>Computer:</div>
+        </div>
+        <div class = 'outcomeContainer'>
+            <div class = 'outcome'>Outcome:</div>
+        </div>
+        <div class = "score">
+            <div class="player">Player: 
+                <div id = "playerDisplay">0</div>
+            </div>
+            <div class="computer">Computer: 
+                <div id = 'computerDisplay'>0</div>
+            </div>
+        </div>
+        <div class = 'scoreContainer'>
+            <div class ="finalscore" id="final"></div>
+        </div>
+        <div class = 'restartContainer'>
+            <div id = 'restartButton'></div>
+        </div>
+    <script src="script2.js"></script>
 </body>
 </html>
